@@ -1,11 +1,11 @@
-const video = document.getElementById("cameraFeed");
+
+  const video = document.getElementById("cameraFeed");
 const canvas = document.getElementById("output");
 const ctx = canvas.getContext("2d");
 
 const gestureLabel = document.getElementById("gestureLabel");
 const alarm = document.getElementById("alarmSound");
 const cameraStatus = document.getElementById("cameraStatus");
-const trackingStatus = document.getElementById("trackingStatus");
 const gestureStatus = document.getElementById("gestureStatus");
 const logList = document.getElementById("logList");
 
@@ -13,15 +13,14 @@ let detector, running = false, alarmOn = false, lastGesture = null;
 
 async function initCamera() {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
     video.srcObject = stream;
     cameraStatus.textContent = "Camera: Connected";
-    cameraStatus.classList.remove("disconnected");
-    cameraStatus.classList.add("connected");
+    cameraStatus.style.color = "#00ff99";
     startDetector();
   } catch (e) {
     cameraStatus.textContent = "Camera: Denied";
-    cameraStatus.classList.add("disconnected");
+    cameraStatus.style.color = "#ff6666";
     alert("Camera permission denied");
   }
 }
@@ -34,13 +33,14 @@ async function startDetector() {
     modelType: "lite"
   };
   detector = await handPoseDetection.createDetector(model, detectorConfig);
-  trackingStatus.textContent = "Active";
   running = true;
   detectLoop();
 }
 
 async function detectLoop() {
   if (!running) return;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
   const hands = await detector.estimateHands(video, { flipHorizontal: true });
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
