@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gesture Control Dashboard</title>
   <link rel="stylesheet" href="page3.css" />
-  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+
+  <!-- MediaPipe + TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"></script>
 </head>
+
 <body>
   <header>
     <h1 class="logo">Gesture Control Dashboard</h1>
@@ -16,8 +23,9 @@
     <!-- CAMERA BOX -->
     <div class="box camera-box">
       <h2>📷 Live Camera Feed</h2>
-      <img id="pythonCamera" src="http://localhost:5050/video_feed" alt="Camera Stream" />
-      <p id="cameraStatus">Camera: Connected</p>
+      <video id="cameraFeed" autoplay playsinline></video>
+      <canvas id="output"></canvas>
+      <p id="cameraStatus">Camera: Connecting...</p>
     </div>
 
     <!-- GESTURE STATUS BOX -->
@@ -34,60 +42,6 @@
     </div>
   </div>
 
-  <script>
-    const socket = io("http://localhost:5050");
-    const gestureLabel = document.getElementById("gestureLabel");
-    const gestureStatus = document.getElementById("gestureStatus");
-    const logList = document.getElementById("logList");
-    const alarm = document.getElementById("alarmSound");
-
-    socket.on("gesture_update", data => {
-      const gesture = data.gesture;
-      gestureStatus.textContent = gesture;
-      updateUI(gesture);
-      addToLog(gesture);
-    });
-
-    function updateUI(gesture) {
-      gestureLabel.textContent = gesture;
-      gestureLabel.className = "";
-
-      switch (gesture) {
-        case "Normal":
-          gestureLabel.textContent = "🖐 Normal – Palm Open";
-          gestureLabel.classList.add("normal");
-          stopAlarm();
-          break;
-        case "Moderate":
-          gestureLabel.textContent = "👍 Moderate – Thumbs Up";
-          gestureLabel.classList.add("moderate");
-          stopAlarm();
-          break;
-        case "Emergency":
-          gestureLabel.textContent = "✊ EMERGENCY!";
-          gestureLabel.classList.add("emergency");
-          alarm.play();
-          alarm.loop = true;
-          break;
-        default:
-          gestureLabel.textContent = "No hand detected";
-          gestureLabel.classList.add("neutral");
-          stopAlarm();
-      }
-    }
-
-    function addToLog(gesture) {
-      const time = new Date().toLocaleTimeString();
-      const entry = document.createElement("p");
-      entry.textContent = `${gesture} — ${time}`;
-      logList.prepend(entry);
-      if (logList.children.length > 10) logList.removeChild(logList.lastChild);
-    }
-
-    function stopAlarm() {
-      alarm.pause();
-      alarm.currentTime = 0;
-    }
-  </script>
+  <script src="page3.js"></script>
 </body>
 </html>
