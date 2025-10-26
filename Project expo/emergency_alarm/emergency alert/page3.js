@@ -1,5 +1,8 @@
 
-  const video = document.getElementById("cameraFeed");
+  
+  const socket = io();
+
+const video = document.getElementById("cameraFeed");
 const canvas = document.getElementById("output");
 const ctx = canvas.getContext("2d");
 
@@ -44,14 +47,15 @@ async function detectLoop() {
   const hands = await detector.estimateHands(video, { flipHorizontal: true });
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  let gesture = "No Hand";
+
   if (hands.length > 0) {
     for (const hand of hands) drawHand(hand.keypoints);
-    const gesture = classifyGesture(hands[0].keypoints);
-    updateUI(gesture);
-  } else {
-    updateUI("No Hand");
+    gesture = classifyGesture(hands[0].keypoints);
   }
 
+  updateUI(gesture);
+  socket.emit("gesture_alert", { gesture: gesture });
   requestAnimationFrame(detectLoop);
 }
 
@@ -69,11 +73,7 @@ function drawHand(kp) {
 function classifyGesture(kp) {
   const tipIds = [8, 12, 16, 20];
   let open = 0;
-
-  tipIds.forEach(id => {
-    if (kp[id].y < kp[id - 2].y) open++;
-  });
-
+  tipIds.forEach(id => { if (kp[id].y < kp[id - 2].y) open++; });
   const thumbOpen = kp[4].x < kp[3].x;
   if (open >= 4) return "Normal";
   if (thumbOpen && open <= 1) return "Moderate";
@@ -90,21 +90,10 @@ function updateUI(gesture) {
   gestureLabel.className = gesture.toLowerCase();
 
   switch (gesture) {
-    case "Normal":
-      gestureLabel.textContent = "🖐 Normal – Palm Open";
-      stopAlarm();
-      break;
-    case "Moderate":
-      gestureLabel.textContent = "👍 Moderate – Thumbs Up";
-      stopAlarm();
-      break;
-    case "Emergency":
-      gestureLabel.textContent = "✊ EMERGENCY!";
-      triggerAlarm();
-      break;
-    default:
-      gestureLabel.textContent = "No hand detected";
-      stopAlarm();
+    case "Normal": gestureLabel.textContent = "🖐 Normal – Palm Open"; stopAlarm(); break;
+    case "Moderate": gestureLabel.textContent = "👍 Moderate – Thumbs Up"; stopAlarm(); break;
+    case "Emergency": gestureLabel.textContent = "✊ EMERGENCY!"; triggerAlarm(); break;
+    default: gestureLabel.textContent = "No hand detected"; stopAlarm();
   }
 }
 
@@ -120,19 +109,11 @@ function addToLog(gesture) {
 }
 
 function triggerAlarm() {
-  if (!alarmOn) {
-    alarm.play();
-    alarm.loop = true;
-    alarmOn = true;
-  }
+  if (!alarmOn) { alarm.play(); alarm.loop = true; alarmOn = true; }
 }
 
 function stopAlarm() {
-  if (alarmOn) {
-    alarm.pause();
-    alarm.currentTime = 0;
-    alarmOn = false;
-  }
+  if (alarmOn) { alarm.pause(); alarm.currentTime = 0; alarmOn = false; }
 }
 
 initCamera();
