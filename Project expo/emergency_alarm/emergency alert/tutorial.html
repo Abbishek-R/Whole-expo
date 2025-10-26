@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial</title>
+<style>
+body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#111;color:#fff;font-family:'Poppins',sans-serif;}
+video{max-width:90%;border-radius:20px;box-shadow:0 0 30px #00ffd0;}
+#backBtn{margin-top:20px;padding:12px 25px;border:none;border-radius:30px;background:linear-gradient(90deg,#00ffd0,#00c6ff);color:#052;cursor:pointer;font-weight:600;}
+#backBtn:hover{transform:scale(1.05);}
+</style>
+</head>
+<body>
+<video id="tutorialVideo" controls autoplay>
+  <source src="tutorial.mp4" type="video/mp4">
+</video>
+<button id="backBtn">Back</button>
+<script>
+const back=document.getElementById('backBtn');
+const vid=document.getElementById('tutorialVideo');
+back.addEventListener('click',()=> window.location.href='permission.html');
+vid.addEventListener('ended',()=> window.location.href='permission.html');
+</script>
+</body>
+</html>

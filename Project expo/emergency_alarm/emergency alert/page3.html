@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gesture Control Dashboard</title>
+  <link rel="stylesheet" href="page3.css" />
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="logo">Gesture Control Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <!-- CAMERA BOX -->
+    <div class="box camera-box">
+      <h2>📷 Live Camera Feed</h2>
+      <img id="pythonCamera" src="http://localhost:5050/video_feed" alt="Camera Stream" />
+      <p id="cameraStatus">Camera: Connected</p>
+    </div>
+
+    <!-- GESTURE STATUS BOX -->
+    <div class="box gesture-box">
+      <h2>🖐 Gesture Status</h2>
+      <p id="gestureLabel">Waiting for gesture...</p>
+      <p><strong>Current:</strong> <span id="gestureStatus">—</span></p>
+      <audio id="alarmSound" src="alarm.wav" preload="auto"></audio>
+
+      <div class="log-section">
+        <h3>Live Gesture Log</h3>
+        <div id="logList" class="log-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const socket = io("http://localhost:5050");
+    const gestureLabel = document.getElementById("gestureLabel");
+    const gestureStatus = document.getElementById("gestureStatus");
+    const logList = document.getElementById("logList");
+    const alarm = document.getElementById("alarmSound");
+
+    socket.on("gesture_update", data => {
+      const gesture = data.gesture;
+      gestureStatus.textContent = gesture;
+      updateUI(gesture);
+      addToLog(gesture);
+    });
+
+    function updateUI(gesture) {
+      gestureLabel.textContent = gesture;
+      gestureLabel.className = "";
+
+      switch (gesture) {
+        case "Normal":
+          gestureLabel.textContent = "🖐 Normal – Palm Open";
+          gestureLabel.classList.add("normal");
+          stopAlarm();
+          break;
+        case "Moderate":
+          gestureLabel.textContent = "👍 Moderate – Thumbs Up";
+          gestureLabel.classList.add("moderate");
+          stopAlarm();
+          break;
+        case "Emergency":
+          gestureLabel.textContent = "✊ EMERGENCY!";
+          gestureLabel.classList.add("emergency");
+          alarm.play();
+          alarm.loop = true;
+          break;
+        default:
+          gestureLabel.textContent = "No hand detected";
+          gestureLabel.classList.add("neutral");
+          stopAlarm();
+      }
+    }
+
+    function addToLog(gesture) {
+      const time = new Date().toLocaleTimeString();
+      const entry = document.createElement("p");
+      entry.textContent = `${gesture} — ${time}`;
+      logList.prepend(entry);
+      if (logList.children.length > 10) logList.removeChild(logList.lastChild);
+    }
+
+    function stopAlarm() {
+      alarm.pause();
+      alarm.currentTime = 0;
+    }
+  </script>
+</body>
+</html>

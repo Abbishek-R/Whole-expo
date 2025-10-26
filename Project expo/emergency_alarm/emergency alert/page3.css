@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top, #021020, #000);
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,255,255,0.1);
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+.logo {
+  font-size: 2em;
+  color: #00ffff;
+  text-shadow: 0 0 10px cyan;
+}
+
+/* --- CONTAINER --- */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin: 40px auto;
+  max-width: 1200px;
+  flex-wrap: wrap; /* stack on small screens */
+}
+
+/* --- BOXES --- */
+.box {
+  flex: 1 1 500px;
+  background: rgba(255,255,255,0.05);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make gesture-box height match camera-box */
+.camera-box, .gesture-box {
+  height: 100%;
+}
+
+/* --- CAMERA BOX --- */
+.camera-box img {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 3px solid #00ffff;
+
+
+  /* transform: scaleX(-1);  Uncomment if feed is mirrored */
+}
+
+#cameraStatus {
+  margin-top: 10px;
+  color: #00ff99;
+  font-weight: 600;
+}
+
+/* --- GESTURE BOX --- */
+.gesture-box {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+#gestureLabel {
+  font-size: 1.6em;
+  margin: 10px 0;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+#gestureLabel.normal { color: #00ff7f; }
+#gestureLabel.moderate { color: #ffff66; }
+#gestureLabel.emergency { color: #ff4d4d; }
+#gestureLabel.neutral { color: #cccccc; }
+
+/* --- LOG SECTION --- */
+.log-section {
+  margin-top: 20px;
+  flex: 1; /* fill remaining space */
+}
+
+.log-list {
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 10px;
+}

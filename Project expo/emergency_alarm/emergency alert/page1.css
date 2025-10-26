@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #2a003a, #190028);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 85%;
+  height: 80%;
+  background: rgba(20, 0, 30, 0.9);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 60px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9);
+}
+
+.welcome-section {
+  width: 50%;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 15px;
+}
+
+p {
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
+
+.learn-more {
+  background: linear-gradient(90deg, #ff3e6b, #ff7a00);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-section {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px 50px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  transition: 0.5s;
+}
+
+.login-box h2 {
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.submit-btn, .next-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #ff7a00, #ff3e6b);
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.permission-step h2 {
+  margin-bottom: 10px;
+}
+
+.permission-step p {
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top left, #1a1a1a, #000);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.intro-container {
+  text-align: center;
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 50px;
+  opacity: 0;
+  letter-spacing: 1px;
+  animation: fadeIn 1.5s ease-in forwards 0.5s;
+}
+
+.btn {
+  background: linear-gradient(90deg, #ff7a00, #ff3e6b);
+  border: none;
+  padding: 15px 50px;
+  border-radius: 40px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0;
+  animation: fadeIn 2s ease-in forwards 1.2s;
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.5);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 80, 0, 0.9);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade Out Transition */
+body.fade-out {
+  opacity: 0;
+}
