@@ -1,4 +1,4 @@
-body {
+ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   background: radial-gradient(circle at top, #021020, #000);
@@ -12,13 +12,8 @@ header {
   box-shadow: 0 0 20px rgba(0,255,255,0.3);
 }
 
-.logo {
-  font-size: 2em;
-  color: #00ffff;
-  text-shadow: 0 0 10px cyan;
-}
+.logo { font-size: 2em; color: #00ffff; text-shadow: 0 0 10px cyan; }
 
-/* --- CONTAINER --- */
 .container {
   display: flex;
   justify-content: center;
@@ -29,7 +24,6 @@ header {
   flex-wrap: wrap;
 }
 
-/* --- BOXES --- */
 .box {
   flex: 1 1 500px;
   background: rgba(255,255,255,0.05);
@@ -40,11 +34,8 @@ header {
   flex-direction: column;
 }
 
-.camera-box, .gesture-box {
-  height: 100%;
-}
+.camera-box, .gesture-box { height: 100%; }
 
-/* --- CAMERA BOX --- */
 #cameraFeed, #output {
   width: 100%;
   height: 400px;
@@ -54,53 +45,20 @@ header {
   transform: scaleX(-1);
 }
 
-#output {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+#cameraStatus { margin-top: 10px; color: #00ff99; font-weight: 600; }
 
-#cameraStatus {
-  margin-top: 10px;
-  color: #00ff99;
-  font-weight: 600;
-}
-
-/* --- GESTURE BOX --- */
-.gesture-box {
-  text-align: left;
-  justify-content: flex-start;
-}
-
-#gestureLabel {
-  font-size: 1.6em;
-  margin: 10px 0;
-  text-shadow: 0 0 10px #00ffff;
-}
-
+.gesture-box { text-align: left; justify-content: flex-start; }
+#gestureLabel { font-size: 1.6em; margin: 10px 0; text-shadow: 0 0 10px #00ffff; }
 #gestureLabel.normal { color: #00ff7f; }
 #gestureLabel.moderate { color: #ffff66; }
 #gestureLabel.emergency { color: #ff4d4d; }
 #gestureLabel.neutral { color: #cccccc; }
 
-/* --- LOG SECTION --- */
-.log-section {
-  margin-top: 20px;
-  flex: 1;
-}
+.log-section { margin-top: 20px; flex: 1; }
+.log-list { max-height: 200px; overflow-y: auto; background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px; }
 
-.log-list {
-  max-height: 200px;
-  overflow-y: auto;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  padding: 10px;
-}
-
-/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  #cameraFeed, #output {
-    height: 300px;
-  }
+  #cameraFeed, #output { height: 300px; }
   .logo { font-size: 1.5em; }
 }
+
