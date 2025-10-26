@@ -1,26 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gesture Control Dashboard</title>
-  <link rel="stylesheet" href="page3.css" />
-
-  <!-- MediaPipe + TensorFlow.js -->
+  <link rel="stylesheet" href="page3.css">
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"></script>
 </head>
-
 <body>
   <header>
     <h1 class="logo">Gesture Control Dashboard</h1>
   </header>
 
   <div class="container">
-    <!-- CAMERA BOX -->
     <div class="box camera-box">
       <h2>📷 Live Camera Feed</h2>
       <video id="cameraFeed" autoplay playsinline></video>
@@ -28,7 +24,6 @@
       <p id="cameraStatus">Camera: Connecting...</p>
     </div>
 
-    <!-- GESTURE STATUS BOX -->
     <div class="box gesture-box">
       <h2>🖐 Gesture Status</h2>
       <p id="gestureLabel">Waiting for gesture...</p>
